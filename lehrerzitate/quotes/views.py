@@ -11,5 +11,5 @@ def index(request):
             form.save()
     
     form = QuoteForm()
-    teachers = models.Teacher.objects.all()
+    teachers = filter( lambda x: len(x.quotes.all()) > 0, models.Teacher.objects.all())
     return render(request, 'quotes/index.html', context={'teachers': teachers, 'new_quote': form})

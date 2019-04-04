@@ -7,8 +7,9 @@ verify_ssl = true
 pylint = "*"
 
 [packages]
-djangorestframework = "*"
 django = "*"
+django-bootstrap-datepicker-plus = "*"
+django-bootstrap4 = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "9b1e23c700f9ae0ecf6a8a76850406325b5025a4d068ec94a480c48fb208042e"
+            "sha256": "5263ee8b8077dd80505293a0b365f5efc6ca16f7d7b303de0f39731f192bb0f1"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -24,13 +24,20 @@
             "index": "pypi",
             "version": "==2.2"
         },
-        "djangorestframework": {
+        "django-bootstrap-datepicker-plus": {
             "hashes": [
-                "sha256:8a435df9007c8b7d8e69a21ef06650e3c0cbe0d4b09e55dd1bd74c89a75a9fcd",
-                "sha256:f7a266260d656e1cf4ca54d7a7349609dc8af4fe2590edd0ecd7d7643ea94a17"
+                "sha256:490058eba99d47f48a7d24fa78581c0e36375bdc7aa9605783eeb170d51fd0df",
+                "sha256:a8bc19cc6846f97ff1e6c447f4e0387881d16e8afa1e8bd7a652c19e545c566b"
             ],
             "index": "pypi",
-            "version": "==3.9.2"
+            "version": "==3.0.5"
+        },
+        "django-bootstrap4": {
+            "hashes": [
+                "sha256:9f115534ae8d052d397201f3d716c10d7c9832b422e44dd7382418c6f274df18"
+            ],
+            "index": "pypi",
+            "version": "==0.0.8"
         },
         "pytz": {
             "hashes": [
@@ -95,7 +102,6 @@
                 "sha256:bd6292f565ca46dee4e737ebcc20742e3b5be2b01556dafe169f6c65d088875f",
                 "sha256:cb924aa3e4a3fb644d0c463cad5bc2572649a6a3f68a7f8e4fbe44aaa6d77e4c",
                 "sha256:d0fc7a286feac9077ec52a927fc9fe8fe2fabab95426722be4c953c9a8bede92",
-                "sha256:d94d13ce8240a708c0d65dab81bbc1cee66f3efa8026bfccf4de0435927be152",
                 "sha256:ddc34786490a6e4ec0a855d401034cbd1242ef186c20d79d2166d6a4bd449577",
                 "sha256:e34b155e36fa9da7e1b7c738ed7767fc9491a62ec6af70fe9da4a057759edc2d",
                 "sha256:e5b9e8f6bda48460b7b143c3821b21b452cb3a835e6bbd5dd33aa0c8d3f5137d",
@@ -154,7 +160,6 @@
         },
         "wrapt": {
             "hashes": [
-                "sha256:3453dc2f24381bde869bc51c030fe1000b51617ade2fc7ceedbe94ce6d5e90f1",
                 "sha256:4aea003270831cceb8a90ff27c4031da6ead7ec1886023b80ce0dfe0adf61533"
             ],
             "version": "==1.11.1"

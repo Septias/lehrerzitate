@@ -1,16 +1,14 @@
 from django.forms import ModelForm
 from .models import Quote
 from django.forms import Textarea
+from bootstrap_datepicker_plus import DatePickerInput
 
 class QuoteForm(ModelForm):
     class Meta:
         model = Quote
-        fields = ['teacher', 'text']
+        fields = ['teacher', 'text', 'date']
         widgets = {
             'text': Textarea(attrs={'cols': 80, 'rows': 3}),
+            'date': DatePickerInput(format='%Y-%m-%d')
         }
 
-    def __init__(self, *args, **kwargs):
-        super(QuoteForm, self).__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'

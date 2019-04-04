@@ -3,6 +3,11 @@ from . import models
 
 # Register your models here.
 
+class QuotesInline(admin.StackedInline):
+    model = models.Quote
+    extra = 0
 
-admin.site.register(models.Teacher)
-admin.site.register(models.Quote)
+@admin.register(models.Teacher)
+class AdminTeacher(admin.ModelAdmin):
+    inlines = [QuotesInline]
+
