@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Kepler Lehrer Zitate</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="container mb-3">
+    <h1 class="display-3">Lehrerzitate</h1>
+  </div>
+  <div class="container">
+    <a class="btn bg-primary text-white mb-3" href="#new_quote">Neues Zitat</a>
+  </div>
+  <div class="container">
+    <div class="row">
+      {% for teacher in teachers %}
+      <div class="col-xl-4 col-lg-4 col-sm-6 col-12">
+        <div class="card mb-3 border-primary">
+          <div class="card-header">
+            {{teacher.name}}
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              {% for quote in teacher.quotes.all %}
+              <li class="list-group-item">{{quote.text|linebreaks}}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="container pb-3">
+      <hr>
+      <div class="row justify-content-start">
+        <div class="col-8">
+          <h2>Neues Zitat</h2>
+          <form method=POST>
+            {% csrf_token %}
+            <div class="form-group">
+              {{new_quote}}
+            </div>
+            <button type='submit' class='btn btn-success'>Absenden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>
