@@ -14,6 +14,6 @@ class QuoteForm(ModelForm):
         }
         widgets = {
             'text': Textarea(attrs={'cols': 80, 'rows': 3}),
-            'date': DatePickerInput(format='%Y-%m-%d')
+            'date': DatePickerInput(format='%Y')
         }
 
