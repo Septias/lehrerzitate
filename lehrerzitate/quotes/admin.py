@@ -11,3 +11,4 @@ class QuotesInline(admin.StackedInline):
 class AdminTeacher(admin.ModelAdmin):
     inlines = [QuotesInline]
 
+admin.site.register(models.Quote)

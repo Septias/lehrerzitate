@@ -1,8 +1,14 @@
 from django.shortcuts import render
 from . import models
 from .forms import QuoteForm
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
 
-# Create your views here.
+
+class TeacherCreate(CreateView):
+    model = models.Teacher
+    fields = ['name']
+    success_url = reverse_lazy('index')
 
 def index(request):
     if request.method == 'POST':
