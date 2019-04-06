@@ -1,19 +1,19 @@
 from django.forms import ModelForm
 from .models import Quote
 from django.forms import Textarea
-from bootstrap_datepicker_plus import DatePickerInput
+from bootstrap_datepicker_plus import YearPickerInput
 from django.utils.translation import gettext_lazy as _
 
 class QuoteForm(ModelForm):
     class Meta:
         model = Quote
-        fields = ['teacher', 'text', 'date']
+        fields = ['teacher', 'text', 'year']
         
         help_texts = {
-            'date': _('not required'),
+            'year': _('not required'),
         }
         widgets = {
             'text': Textarea(attrs={'cols': 80, 'rows': 3}),
-            'date': DatePickerInput(format='%Y')
+            'year': YearPickerInput(format='20%y')
         }
 

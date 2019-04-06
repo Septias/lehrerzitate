@@ -16,8 +16,10 @@ def index(request):
         form = QuoteForm(request.POST)
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(reverse_lazy('index'))
+            return HttpResponseRedirect(reverse_lazy('index'))
 
-    form = QuoteForm()
+    else:
+        form = QuoteForm()
+        
     teachers = filter(lambda x: len(x.quotes.all()) > 0, models.Teacher.objects.all())
     return render(request, 'quotes/index.html', context={'teachers': teachers, 'new_quote': form})
