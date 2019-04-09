@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Report - Kepler Lehrer Zitate</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% load bootstrap4 %}
+	{% bootstrap_css %}
+</head>
+
+<body>
+	<div class="container mb-3">
+		<h1 class="display-3">Lehrerzitate</h1>
+	</div>
+	<div class= container>
+		<form method="post">
+			{% csrf_token %}
+			{%bootstrap_form form %}
+			<button type='submit' class='btn btn-success'>Absenden</button>
+		</form>
+	</div>
+</body>
+
+</html>
