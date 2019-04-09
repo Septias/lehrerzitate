@@ -25,5 +25,10 @@ class Quote(models.Model):
     year = models.IntegerField('Datum', blank=True, null=True, default=datetime.datetime.now().year, validators=[validate_year])
 
     def __str__(self):
-        return self.text[:30] + '...'
+        return self.text[:50] + '...'
 
+class Report(models.Model):
+    quote = models.ForeignKey(Quote, on_delete=models.CASCADE, verbose_name = 'Zitat')
+    reason = models.TextField('Grund', max_length=700)
+    email = models.EmailField('Email')
+    

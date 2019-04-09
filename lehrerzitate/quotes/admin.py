@@ -12,3 +12,4 @@ class AdminTeacher(admin.ModelAdmin):
     inlines = [QuotesInline]
 
 admin.site.register(models.Quote)
+admin.site.register(models.Report)
