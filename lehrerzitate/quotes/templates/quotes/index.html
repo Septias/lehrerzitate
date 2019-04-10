@@ -66,7 +66,7 @@
             <li class="list-group-item quote-item">
               <blockquote class="blockquote">
               <a href="{% url 'report' quote.id %}" class="fas fa-exclamation quote-icon"></a>
-                <div>{{quote.text|linebreaks}}</div>
+                <div class="quote-text">{{quote.text|linebreaks}}</div>
                 {% if quote.year %}
                 <footer class="blockquote-footer">
                   {{quote.year}}
@@ -97,4 +97,18 @@
   </div>
 </body>
 
+<script>
+  function replaceBold(elemsClass) {
+          let elems = document.getElementsByClassName(elemsClass);
+          for (let elem of elems) {
+              let pieces = elem.innerText.split('*');
+
+              for (let i = 1; i < pieces.length; i += 2) {
+                  pieces[i] = '*<i>' + pieces[i] + '</i>*';
+              }
+              elem.innerHTML = pieces.join('');
+          }
+      }
+      replaceBold('quote-text');
+</script>
 </html>
