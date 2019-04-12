@@ -32,7 +32,7 @@ def index(request):
         form = QuoteForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse_lazy('index#new_quote'))
+            return HttpResponseRedirect(reverse_lazy('index'))
 
     else:
         form = QuoteForm()
