@@ -9,7 +9,8 @@
   {% load bootstrap4 %}
   {% bootstrap_css %}
   {% bootstrap_javascript jquery='full' %}
-  {{ new_quote.media }}
+  {% load static %}
+  <script type="text/javascript" src="{% static 'quotes/script.js'%}"></script>
 
   <style type="text/css">
     @media (min-width: 576px) {
@@ -95,20 +96,10 @@
       </div>
     </div>
   </div>
+
 </body>
 
 <script>
-  function replaceBold(elemsClass) {
-          let elems = document.getElementsByClassName(elemsClass);
-          for (let elem of elems) {
-              let pieces = elem.innerText.split('*');
-
-              for (let i = 1; i < pieces.length; i += 2) {
-                  pieces[i] = '*<i>' + pieces[i] + '</i>*';
-              }
-              elem.innerHTML = pieces.join('');
-          }
-      }
-      replaceBold('quote-text');
+  formatItalic('quote-text');
 </script>
 </html>
