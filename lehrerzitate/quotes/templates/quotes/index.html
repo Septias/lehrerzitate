@@ -12,40 +12,7 @@
   {% load static %}
   {{ new_quote.media}}
   <script type="text/javascript" src="{% static 'quotes/script.js'%}"></script>
-
-  <style type="text/css">
-    @media (min-width: 576px) {
-      .card-columns {
-        column-count: 1;
-      }
-    }
-
-    @media (min-width: 768px) {
-      .card-columns {
-        column-count: 1;
-      }
-    }
-
-    @media (min-width: 992px) {
-      .card-columns {
-        column-count: 2;
-      }
-    }
-
-    @media (min-width: 1200px) {
-      .card-columns {
-        column-count: 3;
-      }
-    }
-    .quote-item{
-      padding-right: 0px;
-    }
-    .quote-icon{
-      display: inline-block;
-      color: #ff4d4d;
-      float: right;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'quotes/style.css'%}">
 </head>
 
 <body>
