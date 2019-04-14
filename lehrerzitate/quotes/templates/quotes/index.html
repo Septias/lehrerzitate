@@ -9,55 +9,10 @@
   {% load bootstrap4 %}
   {% bootstrap_css %}
   {% bootstrap_javascript jquery='full' %}
-  {{ new_quote.media }}
-
-  <style type="text/css">
-    @media (min-width: 576px) {
-      .card-columns {
-        column-count: 1;
-      }
-    }
-
-    @media (min-width: 768px) {
-      .card-columns {
-        column-count: 1;
-      }
-    }
-
-    @media (min-width: 992px) {
-      .card-columns {
-        column-count: 2;
-      }
-    }
-
-    @media (min-width: 1200px) {
-      .card-columns {
-        column-count: 2;
-      }
-    }
-    .quote-item{
-      padding: .75rem 0;
-      display: inherit;
-      float: left;
-    }
-    .quote-icon{
-      display: inline-block;
-      color: #ff4d4d;
-      float: right;
-    }
-    .qoute-extras{
-      min-height: 100%;
-    }
-    .quote-1{
-      font-size: 1.25rem;
-      cursor: pointer;
-    }
-
-    .quote-blockquote{
-      padding: 0 1.1rem;
-    }
-    
-  </style>
+  {% load static %}
+  {{ new_quote.media}}
+  <script type="text/javascript" src="{% static 'quotes/script.js'%}"></script>
+  <link rel="stylesheet" href="{% static 'quotes/style.css'%}">
 </head>
 
 <body>
@@ -110,6 +65,10 @@
       </div>
     </div>
   </div>
+
 </body>
 
+<script>
+  formatItalic('quote-text');
+</script>
 </html>
