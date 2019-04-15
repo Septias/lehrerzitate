@@ -68,4 +68,7 @@ def like(request, quote_id):
         request.session['liked'].append(quote_id)
 
     index = tuple(models.Quote.objects.all()).index(quote)
+    if index == 1:
+        index = 0
+        
     return JsonResponse({'id': quote.id, 'likes': quote.likes, 'index': index})
