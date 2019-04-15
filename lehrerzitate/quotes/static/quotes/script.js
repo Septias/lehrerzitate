@@ -32,9 +32,10 @@ function like(id) {
             n.children[0].innerHTML = data.likes;
             n.children[0].onclick = '';
             n.onmouseover = function () {
-                _hovered(this)
+                _hovered(this);
             };
             likes[data.id] = data.likes;
+            n.parentElement.insertBefore(n, n.parentElement.children[data.index]);
         }
     });
 }

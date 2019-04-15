@@ -33,25 +33,23 @@
         <div class="card-body">
           <ul class="list-group list-group-flush">
             {% for quote in teacher.quotes.all %}
-            <li id="{{quote.id}}" class="list-group-item quote-item" {% if quote.id not in session_likes %}
-              onmouseover="hovered(this)" onmouseout="not_hovered(this)" {% endif %}>
-              <tr>
-                {% if quote.likes > 0 %}
-                <div class="qoute-extras quote-likes text-muted" onclick="like({{quote.id}})">{{quote.likes}}</div>
-                {% else %}
-                <div class="qoute-extras quote-likes text-muted" onclick="like({{quote.id}})"></div>
-                {% endif %}
+            <li id="{{quote.id}}" class="list-group-item quote-item" onmouseout="not_hovered(this)" 
+              {% if quote.id not in session_likes %} onmouseover="hovered(this)"{% else %} onmouseover="_hovered(this)" {% endif %}  >
+              {% if quote.likes > 0 %}
+              <div class="qoute-extras quote-likes text-muted" onclick="like({{quote.id}})">{{quote.likes}}</div>
+              {% else %}
+              <div class="qoute-extras quote-likes text-muted" onclick="like({{quote.id}})"></div>
+              {% endif %}
 
-                <blockquote class="blockquote">
-                  {{quote.text|linebreaks}}
-                  {% if quote.year %}
-                  <footer class="blockquote-footer">
-                    {{quote.year}}
-                  </footer>
-                  {% endif %}
-                </blockquote>
-                <a href="{% url 'report' quote.id %}" class="fas fa-exclamation quote-report qoute-extras"></a>
-              </tr>
+              <blockquote class="blockquote">
+                {{quote.text|linebreaks}}
+                {% if quote.year %}
+                <footer class="blockquote-footer">
+                  {{quote.year}}
+                </footer>
+                {% endif %}
+              </blockquote>
+              <a href="{% url 'report' quote.id %}" class="fas fa-exclamation quote-report qoute-extras"></a>
             </li>
             {% endfor %}
           </ul>
@@ -75,11 +73,7 @@
     </div>
   </div>
   <script>
-    var likes = {
-      {
-        likes
-      }
-    };
+    var likes = {{likes}};
     $(document).ready(() => {
       formatItalic('blockquote');
     });
