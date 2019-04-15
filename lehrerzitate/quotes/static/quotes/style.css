@@ -18,16 +18,41 @@
 
 @media (min-width: 1200px) {
     .card-columns {
-        column-count: 3;
+        column-count: 2;
     }
 }
 
 .quote-item {
-    padding-right: 0px;
-}
+    padding: .75rem 0;
+    display: inherit;
+    float: left;
+    flex-direction: row;
+}   
 
-.quote-icon {
+.quote-report {
     display: inline-block;
     color: #ff4d4d;
     float: right;
+    display: none;
+    margin-left: auto;
+}
+
+.quote-likes {
+    font-size: 1.25rem;
+    cursor: pointer;
+    min-width: 1.8em;
+    max-width: 1.8em;
+    text-align: center;
+}
+
+.quote-item blockquote {
+    padding: 0 .1em;
+}
+
+.qoute-extras {
+    min-height: 100%;
+}
+
+.card-body {
+    padding: 0 .5em;
 }

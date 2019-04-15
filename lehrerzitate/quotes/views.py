@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from . import models
 from .forms import QuoteForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from . import forms
@@ -36,6 +36,35 @@ def index(request):
 
     else:
         form = QuoteForm()
+
+    likes = {}
+    for quote in models.Quote.objects.all():
+        likes[quote.id] = quote.likes
+
+    teachers = filter(lambda x: len(x.quotes.all().order_by('likes')) > 0, models.Teacher.objects.all())
+    return render(request, 'quotes/index.html', context={'teachers': teachers, 'new_quote': form, 'likes': likes, 'session_likes': request.session.get('liked', [])})
+
+
+def likes(request):
+    likes = {}
+    for quote in models.Quote.objects.all():
+        likes[quote.id] = quote.likes
+
+    return JsonResponse(likes)
+
+
+def like(request, quote_id):
+    quote = models.Quote.objects.get(id=quote_id)
+    try:
+        if quote_id not in request.session.get('liked'):
+            quote.likes += 1
+            quote.save()
+            request.session['liked'] += [quote.id]
         
-    teachers = filter(lambda x: len(x.quotes.all()) > 0, models.Teacher.objects.all())
-    return render(request, 'quotes/index.html', context={'teachers': teachers, 'new_quote': form})
+    except TypeError:
+        request.session['liked'] = list()
+        quote.likes += 1
+        quote.save()
+        request.session['liked'].append(quote_id)
+
+    return JsonResponse({'id': quote.id, 'likes': quote.likes})

@@ -5,7 +5,8 @@
   <title>Kepler Lehrer Zitate</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   {% load bootstrap4 %}
   {% bootstrap_css %}
   {% bootstrap_javascript jquery='full' %}
@@ -32,17 +33,25 @@
         <div class="card-body">
           <ul class="list-group list-group-flush">
             {% for quote in teacher.quotes.all %}
-            <li class="list-group-item quote-item ">
-              <div class="quote-extras"><span class="text-muted quote-1">+1</span></div>
-              <blockquote class="blockquote quote-blockquote">
-                <div>{{quote.text|linebreaks}}</div>
-                {% if quote.year %}
-                <footer class="blockquote-footer">
-                  {{quote.year}}
-                </footer>
+            <li id="{{quote.id}}" class="list-group-item quote-item" {% if quote.id not in session_likes %}
+              onmouseover="hovered(this)" onmouseout="not_hovered(this)" {% endif %}>
+              <tr>
+                {% if quote.likes > 0 %}
+                <div class="qoute-extras quote-likes text-muted" onclick="like({{quote.id}})">{{quote.likes}}</div>
+                {% else %}
+                <div class="qoute-extras quote-likes text-muted" onclick="like({{quote.id}})"></div>
                 {% endif %}
-              </blockquote>
-              <a href="{% url 'report' quote.id %}" class="fas fa-exclamation quote-icon quote-extras"></a>
+
+                <blockquote class="blockquote">
+                  {{quote.text|linebreaks}}
+                  {% if quote.year %}
+                  <footer class="blockquote-footer">
+                    {{quote.year}}
+                  </footer>
+                  {% endif %}
+                </blockquote>
+                <a href="{% url 'report' quote.id %}" class="fas fa-exclamation quote-report qoute-extras"></a>
+              </tr>
             </li>
             {% endfor %}
           </ul>
@@ -65,10 +74,16 @@
       </div>
     </div>
   </div>
-
+  <script>
+    var likes = {
+      {
+        likes
+      }
+    };
+    $(document).ready(() => {
+      formatItalic('blockquote');
+    });
+  </script>
 </body>
 
-<script>
-  formatItalic('quote-text');
-</script>
 </html>
