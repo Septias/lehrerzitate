@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from . import models
 from .forms import QuoteForm
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from . import forms
@@ -9,8 +9,8 @@ from . import forms
 class TeacherCreate(CreateView):
     model = models.Teacher
     fields = ['name']
-    success_url = reverse_lazy('index')
-
+    success_url = reverse_lazy('new_teacher')
+    
 
 def report(request, quote_id):
     quote = models.Quote.objects.get(id=quote_id)
@@ -42,6 +42,10 @@ def index(request):
         likes[quote.id] = quote.likes
 
     teachers = filter(lambda x: len(x.quotes.all().order_by('likes')) > 0, models.Teacher.objects.all())
+
+    if not request.session.get('logedin', False):
+        return render(request, 'quotes/not_logged_in.html', context={'teachers': teachers, 'new_quote': form, 'likes': likes, 'session_likes': request.session.get('liked', [])})
+        
     return render(request, 'quotes/index.html', context={'teachers': teachers, 'new_quote': form, 'likes': likes, 'session_likes': request.session.get('liked', [])})
 
 
@@ -72,3 +76,14 @@ def like(request, quote_id):
         index = 0
         
     return JsonResponse({'id': quote.id, 'likes': quote.likes, 'index': index})
+
+def login(request):
+    if request.session.get('logedin', False):
+        return HttpResponse('1')
+    
+    if request.POST:
+        if request.POST['password'] == 'relpek':
+            request.session['logedin'] = True
+            return HttpResponse('1')
+
+    return HttpResponse('0')

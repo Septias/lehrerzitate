@@ -1,0 +1,41 @@
+
+{% extends 'quotes/index.html' %}
+
+{% block login %}
+	<div id="login" class="container justify-content-center fixed-top  d-flex">
+		<div class="card col-lg-6 shadow" style="margin-top: 20%">
+			<div class="card-body">
+				<h2> Zugriff verwährt </h2>
+				<p> Du musst ein Password eingeben, um diese Seite aufzurufen </p>
+					<form id="loginform" class="form-group" action="{% url 'login' %}" method="POST">
+						{% csrf_token %}
+						<p id="errormessage" class="text-danger"></p>
+						<label for='pw'>Password</label>
+						<input id="pw" class="form-control mb-2" name="password" required="" placeholder="Password" type="password">
+						<button class='btn btn-success btn-block'>Absenden</button>
+					</form>
+			</div>
+		</div>
+	</div>
+{% endblock login %}
+
+{% block script %}
+	document.getElementById('contentwrapper').style.filte = 'blur(5px);';
+	let frm = $('#loginform');
+	frm.submit(function () {
+		$.ajax({
+			type: frm.attr('method'),
+			url: frm.attr('action'),
+			data: frm.serialize(),
+			success: function (data) {
+				if (data == 1) {
+					document.getElementById('contentwrapper').style.filter = "";
+					$('#login').remove();
+				} else {
+					document.getElementById('errormessage').innerHTML = "Falsches Password"
+				}
+			},
+		});
+		return false;
+	});
+{% endblock script%}
