@@ -61,7 +61,7 @@ def like(request, quote_id):
     quote = models.Quote.objects.get(id=quote_id)
     
     liked = [] if not 'liked' in request.session else request.session['liked']
-    print(liked)
+
     if quote_id in liked:
         quote.likes -= 1
         quote.save()
@@ -76,9 +76,9 @@ def like(request, quote_id):
         request.session['liked'] = liked
         liked = True
 
-    index = list(quote.teacher.quotes.all()).index(quote)
+    order = [quote.id for quote in quote.teacher.quotes.all()]
 
-    return JsonResponse({'id': quote.id, 'likes': quote.likes, 'index': index, 'liked': liked})
+    return JsonResponse({'id': quote.id, 'likes': quote.likes, 'order': order, 'liked': liked})
 
 def login(request):
     if request.session.get('logedin', False):

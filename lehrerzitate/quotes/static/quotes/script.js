@@ -24,6 +24,7 @@ function not_hovered(elem) {
     elem.children[2].style.display = "none";
 }
 
+
 function like(id) {
     $.ajax({
         url: '/ajax/like/' + id,
@@ -33,7 +34,18 @@ function like(id) {
             n.children[0].innerHTML = data.likes;
             n.onmouseover = data.liked ? function(){_hovered(this)}: function(){hovered(this)};
             likes[data.id] = data.likes;
-            n.parentElement.insertBefore(n, n.parentElement.children[data.index + 1]);
+            let parent = n.parentElement;
+            let objects = {}
+            for (let child of parent.children){
+                objects[child.id] = child;
+            }
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+            }
+            for (let index of data.order){
+                parent.appendChild(objects[index])
+            }
+
         }
     });
 }
