@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Kepler Lehrer Zitate</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	{% load bootstrap4 %}
+	{% bootstrap_css %}
+	{% bootstrap_javascript jquery='full' %}
+	{% load static %}
+	{{ new_quote.media}}
+	<script type="text/javascript" src="{% static 'quotes/script.js'%}"></script>
+	<link rel="stylesheet" href="{% static 'quotes/style.css'%}">
+</head>
+
+<body>
+	<div id="contentwrapper" style="filter: blur(5px);-webkit-filter: blur(5px);">
+		<div class="container mb-3 text-center">
+			<h1 class="display-2">Lehrerzitate</h1>
+		</div>
+		<div class="container">
+			<a class="btn btn-block text-white mb-3 btn-success" href="#new_quote">Neues Zitat</a>
+		</div>
+		<div class="container">
+			<div class="card-columns">
+				{% for teacher in teachers %}
+				<div class="card mb-3 border-primary shadow">
+					<div class="card-header">
+						{{teacher.name}}
+					</div>
+					<div class="card-body">
+						<ul class="list-group list-group-flush">
+							{% for quote in teacher.quotes.all %}
+							<li id="{{quote.id}}" class="list-group-item quote-item" onmouseout="not_hovered(this)"
+								{% if quote.id not in session_likes %} onmouseover="hovered(this)" {% else %}
+								onmouseover="_hovered(this)" {% endif %}>
+								{% if quote.likes > 0 %}
+								<div class="qoute-extras quote-likes text-muted" onclick="like({{quote.id}})">{{quote.likes}}</div>
+								{% else %}
+								<div class="qoute-extras quote-likes text-muted" onclick="like({{quote.id}})"></div>
+								{% endif %}
+
+								<blockquote class="blockquote">
+									{{quote.text|linebreaks}}
+									{% if quote.year %}
+									<footer class="blockquote-footer">
+										{{quote.year}}
+									</footer>
+									{% endif %}
+								</blockquote>
+								<a href="{% url 'report' quote.id %}" class="fas fa-exclamation quote-report qoute-extras"></a>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div id="new_quote" class="container pb-3">
+			<hr>
+			<div class="card shadow col-lg-6">
+				<div class="card-header">
+					<h2>Neues Zitat</h2>
+					<p><small class="form-text text-muted"> Bitte keine Zitate, die die Lehrer herabwürdigen </small></p>
+				</div>
+				<div class="card-body mb-3">
+					<form method="post">
+						{% csrf_token %}
+						{% bootstrap_form new_quote %}
+						<button type='submit' class='btn btn-success'>Absenden</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var likes = {{likes}};
+    $(document).ready(() => {
+      formatItalic('blockquote');
+    });
+		let frm = $('#loginform');
+		frm.submit(function () {
+				$.ajax({
+						type: frm.attr('method'),
+						url: frm.attr('action'),
+						data: frm.serialize(),
+						success: function (data) {
+								if (data == 1) {
+										document.getElementById('contentwrapper').style.filter = "";
+										$('#login').remove();
+								} else {
+										document.getElementById('errormessage').innerHTML = "Falsches Password"
+								}
+						},
+				});
+				return false;
+		});
+	</script>
+</body>
+
+</html>

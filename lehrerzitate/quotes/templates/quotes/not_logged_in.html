@@ -2,7 +2,7 @@
 {% extends 'quotes/index.html' %}
 
 {% block login %}
-	<div id="login" class="container justify-content-center fixed-top  d-flex">
+	<div id="login" class="container justify-content-center fixed-top d-flex">
 		<div class="card col-lg-6 shadow" style="margin-top: 20%">
 			<div class="card-body">
 				<h2> Zugriff verwährt </h2>
@@ -39,3 +39,7 @@
 		return false;
 	});
 {% endblock script%}
+
+{% block contentwrapper %}
+<div id="contentwrapper" style="filter: blur(5px);-webkit-filter: blur(5px);">
+{% endblock contentwrapper %}

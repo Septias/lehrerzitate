@@ -19,7 +19,8 @@
 <body>
   {% block login %}
   {% endblock login %}
-
+  {% block contentwrapper %}
+  {% endblock contentwrapper %}
   <div class="container text-center">
     <h1 class="display-2 underlined"><u>Lehrerzitate</u></h1>
   </div>
@@ -79,6 +80,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
   <script>
     var likes = {{likes}};
