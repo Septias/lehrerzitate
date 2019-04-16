@@ -71,10 +71,10 @@ def like(request, quote_id):
         quote.save()
         request.session['liked'].append(quote_id)
 
-    index = tuple(models.Quote.objects.all()).index(quote)
+    index = tuple(quote.teacher.quotes.all()).index(quote)
     if index == 1:
         index = 0
-        
+    
     return JsonResponse({'id': quote.id, 'likes': quote.likes, 'index': index})
 
 def login(request):
