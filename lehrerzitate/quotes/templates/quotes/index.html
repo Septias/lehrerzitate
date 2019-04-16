@@ -37,9 +37,7 @@
         <div class="card-body">
           <ul class="list-group list-group-flush">
             {% for quote in teacher.quotes.all %}
-            <li id="{{quote.id}}" class="list-group-item quote-item" onmouseout="not_hovered(this)"
-              {% if quote.id not in session_likes %} onmouseover="hovered(this)" {% else %} onmouseover="_hovered(this)"
-              {% endif %}>
+            <li id="{{quote.id}}" class="list-group-item quote-item" onmouseout="not_hovered(this)" {% if quote.id not in session_likes %} onmouseover="hovered(this)" {% else %} onmouseover="_hovered(this)"{% endif %}>
               {% if quote.likes > 0 %}
               <div class="qoute-extras quote-likes text-muted" onclick="like({{quote.id}})">{{quote.likes}}</div>
               {% else %}

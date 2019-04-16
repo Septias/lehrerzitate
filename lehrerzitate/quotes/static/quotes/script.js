@@ -15,6 +15,7 @@ function hovered(elem) {
 }
 
 function _hovered(elem) {
+    elem.children[0].innerHTML = "-1";
     elem.children[2].style.display = "inline-block";
 }
 
@@ -30,12 +31,9 @@ function like(id) {
         success: function (data) {
             let n = document.getElementById(data.id);
             n.children[0].innerHTML = data.likes;
-            n.children[0].onclick = '';
-            n.onmouseover = function () {
-                _hovered(this);
-            };
+            n.onmouseover = data.liked ? function(){_hovered(this)}: function(){hovered(this)};
             likes[data.id] = data.likes;
-            n.parentElement.insertBefore(n, n.parentElement.children[data.index]);
+            n.parentElement.insertBefore(n, n.parentElement.children[data.index + 1]);
         }
     });
 }

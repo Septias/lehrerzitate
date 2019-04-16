@@ -59,23 +59,26 @@ def likes(request):
 
 def like(request, quote_id):
     quote = models.Quote.objects.get(id=quote_id)
-    try:
-        if quote_id not in request.session.get('liked'):
-            quote.likes += 1
-            quote.save()
-            request.session['liked'] += [quote.id]
-        
-    except TypeError:
-        request.session['liked'] = list()
+    
+    liked = [] if not 'liked' in request.session else request.session['liked']
+    print(liked)
+    if quote_id in liked:
+        quote.likes -= 1
+        quote.save()
+        liked.remove(quote.id)
+        request.session['liked'] = liked
+        liked = False
+
+    else:
         quote.likes += 1
         quote.save()
-        request.session['liked'].append(quote_id)
+        liked.append(quote.id)
+        request.session['liked'] = liked
+        liked = True
 
-    index = tuple(quote.teacher.quotes.all()).index(quote)
-    if index == 1:
-        index = 0
-    
-    return JsonResponse({'id': quote.id, 'likes': quote.likes, 'index': index})
+    index = list(quote.teacher.quotes.all()).index(quote)
+
+    return JsonResponse({'id': quote.id, 'likes': quote.likes, 'index': index, 'liked': liked})
 
 def login(request):
     if request.session.get('logedin', False):

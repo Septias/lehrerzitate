@@ -18,6 +18,7 @@ class Teacher(models.Model):
     def __str__(self):
         return self.name
 
+
 class Quote(models.Model):
     published = models.DateField(auto_now_add=True)
     text = models.TextField('Zitat', max_length=400, unique=True)
@@ -29,7 +30,8 @@ class Quote(models.Model):
         ordering = ['-likes']
 
     def __str__(self):
-        return self.text[:50] + '...'
+        return self.text[:100] + '...'
+
 
 class Report(models.Model):
     quote = models.ForeignKey(Quote, on_delete=models.CASCADE, verbose_name = 'Zitat')
