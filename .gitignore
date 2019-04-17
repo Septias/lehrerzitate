@@ -2,3 +2,4 @@ lehrerzitate/db.sqlite3
 .idea/
 .vscode/
 __pycache__/
+migrations/

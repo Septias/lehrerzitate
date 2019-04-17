@@ -8,5 +8,6 @@ urlpatterns = [
     path('report/<int:quote_id>', views.report, name="report"),
     path('ajax/get_likes', views.likes),
     path('ajax/like/<int:quote_id>', views.like),
-    path('ajax/login', views.login, name='login')
+    path('ajax/login', views.login, name='login'),
+    path('ajax/toggle_visibility/<int:quote_id>', views.toggle_visibility)
 ]

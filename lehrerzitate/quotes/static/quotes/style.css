@@ -60,3 +60,9 @@
 .card{
     border: 0px;
 }
+
+.toolbar{
+    display: inline-block;
+    float: right;
+    cursor:pointer;
+}

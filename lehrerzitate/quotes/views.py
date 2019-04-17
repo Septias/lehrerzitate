@@ -45,7 +45,7 @@ def index(request):
 
     if not request.session.get('logedin', False):
         return render(request, 'quotes/not_logged_in.html', context={'teachers': teachers, 'new_quote': form, 'likes': likes, 'session_likes': request.session.get('liked', [])})
-        
+    
     return render(request, 'quotes/index.html', context={'teachers': teachers, 'new_quote': form, 'likes': likes, 'session_likes': request.session.get('liked', [])})
 
 
@@ -76,7 +76,7 @@ def like(request, quote_id):
         request.session['liked'] = liked
         liked = True
 
-    order = [quote.id for quote in quote.teacher.quotes.all()]
+    order = [quote.id for quote in quote.teacher.quotes.all().filter(visible=True)]
 
     return JsonResponse({'id': quote.id, 'likes': quote.likes, 'order': order, 'liked': liked})
 
@@ -90,3 +90,17 @@ def login(request):
             return HttpResponse('1')
 
     return HttpResponse('0')
+
+def toggle_visibility(request, quote_id):
+    if request.user.username == 'me':
+        quote = models.Quote.objects.get(id=quote_id)
+        if quote.visible == True:
+            quote.visible = False
+            quote.save()
+            return HttpResponse(0)
+        else:
+            quote.visible = True
+            quote.save()
+            return HttpResponse(1)
+        
+    return HttpResponse(-1)

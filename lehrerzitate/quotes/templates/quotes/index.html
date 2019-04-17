@@ -11,9 +11,10 @@
   {% bootstrap_css %}
   {% bootstrap_javascript jquery='full' %}
   {% load static %}
-  {{ new_quote.media}}
+  {{new_quote.media}}
   <script type="text/javascript" src="{% static 'quotes/script.js'%}"></script>
   <link rel="stylesheet" href="{% static 'quotes/style.css'%}">
+  <script type="text/javascript" src="{% static 'quotes/toolbar.js'%}"></script>
 </head>
 
 <body>
@@ -37,6 +38,7 @@
         <div class="card-body">
           <ul class="list-group list-group-flush">
             {% for quote in teacher.quotes.all %}
+            {% if quote.visible or user.username == 'me'%}
             <li id="{{quote.id}}" class="list-group-item quote-item" onmouseout="not_hovered(this)" {% if quote.id not in session_likes %} onmouseover="hovered(this)" {% else %} onmouseover="_hovered(this)"{% endif %}>
               {% if quote.likes > 0 %}
               <div class="qoute-extras quote-likes text-muted" onclick="like({{quote.id}})">{{quote.likes}}</div>
@@ -46,14 +48,20 @@
 
               <blockquote class="blockquote">
                 {{quote.text|linebreaks}}
-                {% if quote.year %}
+                {% if quote.year or user.username == 'me'%}
                 <footer class="blockquote-footer">
-                  {{quote.year}}
+                  {% if quote.year %}
+                  <span style="display:inline-block">{{quote.year}}</span>
+                  {% endif %}
+                  {% if user.username == 'me' %}
+                  {% include 'quotes/toolbar.html' %}
+                  {% endif %}
                 </footer>
                 {% endif %}
               </blockquote>
               <a href="{% url 'report' quote.id %}" class="fas fa-exclamation quote-report qoute-extras"></a>
             </li>
+            {% endif %}
             {% endfor %}
           </ul>
         </div>
@@ -78,6 +86,7 @@
         </div>
       </div>
     </div>
+    
   </div>
   </div>
   <script>
@@ -88,6 +97,7 @@
     {% block script %}
     {% endblock script %}
   </script>
+
 </body>
 
 </html>

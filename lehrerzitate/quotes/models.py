@@ -25,6 +25,7 @@ class Quote(models.Model):
     teacher = models.ForeignKey(Teacher, models.CASCADE, related_name='quotes', verbose_name='Lehrer', blank=False)
     year = models.IntegerField('Datum', blank=True, null=True, default=datetime.datetime.now().year, validators=[validate_year])
     likes = models.IntegerField('Likes', default=0)
+    visible = models.BooleanField("Sichtbar", default = True)
 
     class Meta:
         ordering = ['-likes']
