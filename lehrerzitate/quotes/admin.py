@@ -11,5 +11,9 @@ class QuotesInline(admin.StackedInline):
 class AdminTeacher(admin.ModelAdmin):
     inlines = [QuotesInline]
 
-admin.site.register(models.Quote)
+
+class AdminQuote(admin.ModelAdmin):
+    list_display = ('text', 'teacher', 'published')
+
+admin.site.register(models.Quote, AdminQuote)
 admin.site.register(models.Report)
